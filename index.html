@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEVFOLIO_OS // SOBI MOHAMED</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    /* ── Hero-specific styles ─────────────────────────────── */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: clamp(3rem, 8vh, 6rem) clamp(1.5rem, 8vw, 7rem);
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Left column ──────────────────────────────────────── */
+    .hero-left { display: flex; flex-direction: column; gap: 0; }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan-dim);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--cyan);
+      box-shadow: 0 0 6px var(--cyan);
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .hero-name .line-2 {
+      color: var(--cyan);
+      text-shadow: 0 0 30px var(--cyan-glow-md), 0 0 80px var(--cyan-glow);
+      display: block;
+    }
+
+    .hero-title {
+      font-family: var(--font-mono);
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      color: var(--text-secondary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .hero-title-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border-dim);
+    }
+    .hero-title .accent { color: var(--electric); }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-tagline strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .hero-meta-value {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cyan);
+      line-height: 1;
+    }
+    .hero-meta-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .hero-meta-sep {
+      width: 1px;
+      height: 32px;
+      background: var(--border-subtle);
+    }
+
+    /* ── Right column ─────────────────────────────────────── */
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    /* Terminal card */
+    .hero-terminal {
+      animation: terminal-appear 1s var(--ease-out) 0.4s both;
+    }
+    @keyframes terminal-appear {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .hero-terminal .terminal-body { padding: 1.25rem 1.5rem; }
+
+    /* Status strip */
+    .hero-status-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .status-card {
+      background: var(--bg-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.3s ease;
+    }
+    .status-card:hover { border-color: var(--border-dim); }
+    .status-icon {
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan-glow);
+      border-radius: 2px;
+      border: 1px solid rgba(0,245,255,0.15);
+      flex-shrink: 0;
+    }
+    .status-info { min-width: 0; }
+    .status-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .status-value {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Scroll indicator ─────────────────────────────────── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: hint-fade 3s ease-in-out 2s both;
+    }
+    @keyframes hint-fade {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--cyan-dim), transparent);
+      animation: scroll-line 2s ease-in-out infinite;
+    }
+    @keyframes scroll-line {
+      0%, 100% { transform: scaleY(1); opacity: 0.6; }
+      50%       { transform: scaleY(0.5); opacity: 1; }
+    }
+
+    /* ── Floating data points ─────────────────────────────── */
+    .data-point {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+      opacity: 0.4;
+      animation: float-data 6s ease-in-out infinite alternate;
+    }
+    .data-point:nth-child(1) { top: 15%; left: 3%; animation-delay: 0s; }
+    .data-point:nth-child(2) { top: 30%; right: 3%; animation-delay: -2s; }
+    .data-point:nth-child(3) { bottom: 25%; left: 2%; animation-delay: -4s; }
+    @keyframes float-data {
+      from { transform: translateY(0); opacity: 0.3; }
+      to   { transform: translateY(-8px); opacity: 0.5; }
+    }
+
+    /* ── Hero line animation ──────────────────────────────── */
+    .hero-left > * {
+      animation: slide-up 0.8s var(--ease-out) both;
+    }
+    .hero-eyebrow   { animation-delay: 0.05s; }
+    .hero-name      { animation-delay: 0.15s; }
+    .hero-title     { animation-delay: 0.25s; }
+    .hero-tagline   { animation-delay: 0.35s; }
+    .hero-cta       { animation-delay: 0.45s; }
+    .hero-meta      { animation-delay: 0.55s; }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Typewriter cursor ────────────────────────────────── */
+    #typed-role::after {
+      content: '|';
+      animation: blink 1s step-end infinite;
+      color: var(--cyan);
+      margin-left: 2px;
+    }
+
+    /* ── Holographic ring (decorative) ───────────────────── */
+    .holo-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid;
+      pointer-events: none;
+      animation: ring-pulse 4s ease-in-out infinite;
+    }
+    .holo-ring-1 {
+      width: 320px; height: 320px;
+      border-color: rgba(0,245,255,0.06);
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      animation-delay: 0s;
+    }
+    .holo-ring-2 {
+      width: 480px; height: 480px;
+      border-color: rgba(139,47,255,0.04);
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      animation-delay: -2s;
+    }
+    .holo-ring-3 {
+      width: 640px; height: 640px;
+      border-color: rgba(0,245,255,0.025);
+      top: 50%; right: 5%;
+      transform: translateY(-50%);
+      animation-delay: -1s;
+    }
+    @keyframes ring-pulse {
+      0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+      50%       { opacity: 1; transform: translateY(-50%) scale(1.02); }
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding-top: 2.5rem;
+      }
+      .hero-right { display: none; }
+      .holo-ring { display: none; }
+    }
+    @media (max-width: 768px) {
+      .hero-meta { gap: 1.25rem; }
+      .scroll-hint { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-meta-value { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="noise"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <a href="./index.html" class="nav-logo">
+      <span>DEV</span><span class="accent">FOLIO</span><span style="color:var(--text-muted)">_</span><span style="color:var(--violet)">OS</span>
+      <span class="version">v2.4.1</span>
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="./index.html"    class="nav-link active" data-index="00">Home</a></li>
+      <li><a href="./about.html"    class="nav-link"        data-index="01">About</a></li>
+      <li><a href="./projects.html" class="nav-link"        data-index="02">Projects</a></li>
+      <li><a href="./skills.html"   class="nav-link"        data-index="03">Skills</a></li>
+      <li><a href="./contact.html"  class="nav-link"        data-index="04">Contact</a></li>
+    </ul>
+
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span>AVAILABLE FOR WORK</span>
+    </div>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Page -->
+  <main class="page">
+
+    <!-- Floating data labels -->
+    <span class="data-point">SYS_LOAD: 0.42</span>
+    <span class="data-point">LAT: 3.8480° N</span>
+    <span class="data-point">UPTIME: 99.98%</span>
+
+    <!-- Holographic rings -->
+    <div class="holo-ring holo-ring-1"></div>
+    <div class="holo-ring holo-ring-2"></div>
+    <div class="holo-ring holo-ring-3"></div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+
+      <!-- Left Column -->
+      <div class="hero-left">
+
+        <div class="hero-eyebrow">
+          <span>Initializing portfolio</span>
+        </div>
+
+        <h1 class="hero-name glitch" data-text="SOBI MOHAMED">
+          SOBI
+          <span class="line-2">MOHAMED</span>
+        </h1>
+
+        <p class="hero-title">
+          <span id="typed-role">AI-Powered Developer</span>
+          <span class="hero-title-divider"></span>
+          <span class="accent">Software Engineer</span>
+        </p>
+
+        <p class="hero-tagline">
+          Building <strong>intelligent systems</strong> at the intersection of
+          product and infrastructure. I architect <strong>scalable backends</strong>,
+          craft <strong>precise interfaces</strong>, and ship software that
+          actually matters.
+        </p>
+
+        <div class="hero-cta">
+          <a href="./projects.html" class="btn btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline></svg>
+            View Projects
+          </a>
+          <a href="./contact.html" class="btn btn-outline">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Get In Touch
+          </a>
+          <a href="#" class="btn btn-violet">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Résumé
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-value">2+</span>
+            <span class="hero-meta-label">Years Exp.</span>
+          </div>
+          <div class="hero-meta-sep"></div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-value">10+</span>
+            <span class="hero-meta-label">Projects</span>
+          </div>
+          <div class="hero-meta-sep"></div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-value">12</span>
+            <span class="hero-meta-label">Open Source</span>
+          </div>
+          <div class="hero-meta-sep"></div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-value">100%</span>
+            <span class="hero-meta-label">Passion.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="hero-right">
+
+        <!-- Terminal window -->
+        <div class="hero-terminal terminal card">
+          <div class="terminal-header">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+            <span class="terminal-title">sobi@devfolio-os ~ bash</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="terminal-prompt">❯</span>
+              <span class="terminal-cmd">whoami</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out">sobi_mohamed // ai-powered software engineer</span>
+            </div>
+            <div class="terminal-line" style="margin-top:0.5rem">
+              <span class="terminal-prompt">❯</span>
+              <span class="terminal-cmd">cat ./stack.json</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out" style="color:var(--violet);">{</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out">&nbsp;&nbsp;<span style="color:var(--cyan);">"languages"</span>: <span style="color:#ffd77a;">["TypeScript","Python","Rust","Go","Any"]</span>,</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out">&nbsp;&nbsp;<span style="color:var(--cyan);">"focus"</span>: <span style="color:#ffd77a;">"AI · Full-Stack · Automation"</span>,</span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out">&nbsp;&nbsp;<span style="color:var(--cyan);">"status"</span>: <span style="color:#00ff88;">"open_to_work"</span></span>
+            </div>
+            <div class="terminal-line">
+              <span class="terminal-out" style="color:var(--violet);">}</span>
+            </div>
+            <div class="terminal-line" style="margin-top:0.5rem">
+              <span class="terminal-prompt">❯</span>
+              <span class="terminal-cmd" id="live-cmd"></span>
+              <span class="terminal-cursor"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status strip -->
+        <div class="hero-status-strip">
+          <div class="status-card">
+            <div class="status-icon">🚀</div>
+            <div class="status-info">
+              <div class="status-label">Current Focus</div>
+              <div class="status-value">AI-Powered Dev</div>
+            </div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon">📍</div>
+            <div class="status-info">
+              <div class="status-label">Location</div>
+              <div class="status-value">Yaounde, CM</div>
+            </div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon">⚡</div>
+            <div class="status-info">
+              <div class="status-label">Last Shipped</div>
+              <div class="status-value">2 days ago</div>
+            </div>
+          </div>
+          <div class="status-card">
+            <div class="status-icon">🛠</div>
+            <div class="status-info">
+              <div class="status-label">Stack</div>
+              <div class="status-value">AI-First stack</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /hero -->
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+
+    <!-- Quick nav tiles -->
+    <section class="section reveal" id="quick-nav" style="padding-top:0; padding-bottom: clamp(4rem,8vh,6rem);">
+      <div class="section-tag">Navigate</div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:1.5rem;">
+
+        <a href="./about.html" class="card" style="padding:1.5rem 1.75rem; display:flex; align-items:center; gap:1rem; text-decoration:none;">
+          <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="card-corner bl"></div><div class="card-corner br"></div>
+          <span style="font-size:1.5rem;">👤</span>
+          <div>
+            <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:var(--text-primary);letter-spacing:0.05em;">About Me</div>
+            <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-top:0.2rem;">Background &amp; Story</div>
+          </div>
+          <svg style="margin-left:auto;color:var(--cyan-dim);flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a href="./projects.html" class="card" style="padding:1.5rem 1.75rem; display:flex; align-items:center; gap:1rem; text-decoration:none;">
+          <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="card-corner bl"></div><div class="card-corner br"></div>
+          <span style="font-size:1.5rem;">📦</span>
+          <div>
+            <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:var(--text-primary);letter-spacing:0.05em;">Projects</div>
+            <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-top:0.2rem;">Work &amp; Case Studies</div>
+          </div>
+          <svg style="margin-left:auto;color:var(--cyan-dim);flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a href="./skills.html" class="card" style="padding:1.5rem 1.75rem; display:flex; align-items:center; gap:1rem; text-decoration:none;">
+          <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="card-corner bl"></div><div class="card-corner br"></div>
+          <span style="font-size:1.5rem;">⚙️</span>
+          <div>
+            <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:var(--text-primary);letter-spacing:0.05em;">Skills</div>
+            <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-top:0.2rem;">Stack &amp; Expertise</div>
+          </div>
+          <svg style="margin-left:auto;color:var(--cyan-dim);flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a href="./contact.html" class="card" style="padding:1.5rem 1.75rem; display:flex; align-items:center; gap:1rem; text-decoration:none;">
+          <div class="card-corner tl"></div><div class="card-corner tr"></div>
+          <div class="card-corner bl"></div><div class="card-corner br"></div>
+          <span style="font-size:1.5rem;">📡</span>
+          <div>
+            <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:600;color:var(--text-primary);letter-spacing:0.05em;">Contact</div>
+            <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-muted);letter-spacing:0.1em;margin-top:0.2rem;">Let's Build Together</div>
+          </div>
+          <svg style="margin-left:auto;color:var(--cyan-dim);flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-left">
+      &copy; 2025 SOBI MOHAMED // DEVFOLIO_OS &mdash; ALL SYSTEMS NOMINAL
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/sobimohammet" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://twitter.com/" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+  </footer>
+
+  <script src="./main.js"></script>
+  <script>
+    /* ── Typewriter role cycling ─────────────────────────── */
+    const roles = [
+      'AI-Powered Developer',
+      'Full-Stack Engineer',
+      'Backend Architect',
+      'Automation Builder',
+      'Software Craftsman',
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    const typedEl = document.getElementById('typed-role');
+
+    function typeRole() {
+      const current = roles[roleIdx];
+      if (!deleting) {
+        typedEl.textContent = current.slice(0, ++charIdx);
+        if (charIdx === current.length) {
+          deleting = true;
+          setTimeout(typeRole, 2200);
+          return;
+        }
+      } else {
+        typedEl.textContent = current.slice(0, --charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+        }
+      }
+      setTimeout(typeRole, deleting ? 45 : 90);
+    }
+    setTimeout(typeRole, 1200);
+
+    /* ── Live terminal command animation ─────────────────── */
+    const liveCmds = [
+      'git push origin main',
+      'npm run build',
+      'docker compose up',
+      'cargo test --release',
+      'python train.py --epochs 50',
+    ];
+    let cmdIdx = 0;
+    let cmdChar = 0;
+    let cmdDeleting = false;
+    const liveCmdEl = document.getElementById('live-cmd');
+
+    function typeCmd() {
+      const current = liveCmds[cmdIdx];
+      if (!cmdDeleting) {
+        liveCmdEl.textContent = current.slice(0, ++cmdChar);
+        if (cmdChar === current.length) {
+          cmdDeleting = true;
+          setTimeout(typeCmd, 1800);
+          return;
+        }
+      } else {
+        liveCmdEl.textContent = current.slice(0, --cmdChar);
+        if (cmdChar === 0) {
+          cmdDeleting = false;
+          cmdIdx = (cmdIdx + 1) % liveCmds.length;
+        }
+      }
+      setTimeout(typeCmd, cmdDeleting ? 35 : 80);
+    }
+    setTimeout(typeCmd, 2500);
+  </script>
+
+</body>
+</html>
