@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEVFOLIO_OS // ABOUT</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      /* ── About Page Styles ──────────────────────────────────── */
+
+      /* Hero banner */
+      .about-hero {
+        min-height: 38vh;
+        display: flex;
+        align-items: flex-end;
+        padding: clamp(3rem, 8vh, 6rem) clamp(1.5rem, 8vw, 7rem) 3rem;
+        position: relative;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+
+      .about-hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .about-hero-eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--cyan-dim);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .about-hero-eyebrow::before {
+        content: '//';
+        color: var(--violet);
+      }
+
+      .about-hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+      .about-hero-title em {
+        font-style: normal;
+        color: var(--cyan);
+        text-shadow:
+          0 0 30px var(--cyan-glow-md),
+          0 0 80px var(--cyan-glow);
+      }
+
+      .about-hero-sub {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        letter-spacing: 0.15em;
+        margin-top: 1rem;
+      }
+
+      /* ── Profile + Bio grid ─────────────────────────────────── */
+      .about-intro {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 4rem;
+        align-items: start;
+        margin-bottom: 6rem;
+      }
+
+      @media (max-width: 900px) {
+        .about-intro {
+          grid-template-columns: 1fr;
+          gap: 5rem;
+        }
+      }
+
+      /* Profile card */
+      .profile-card {
+        position: relative;
+        top: calc(var(--nav-h) + 2rem);
+      }
+
+      .profile-photo-wrap {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        margin-bottom: 1.5rem;
+      }
+
+      .profile-photo-frame {
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--border-dim);
+        border-radius: 2px;
+        overflow: hidden;
+        background: var(--bg-raised);
+      }
+
+      .profile-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+      }
+
+      /* Scanning line on photo */
+      .profile-scan-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--cyan-dim), transparent);
+        animation: scan-photo 3s linear infinite;
+        pointer-events: none;
+        z-index: 3;
+      }
+      @keyframes scan-photo {
+        0% {
+          top: 0%;
+          opacity: 0;
+        }
+        5% {
+          opacity: 1;
+        }
+        95% {
+          opacity: 1;
+        }
+        100% {
+          top: 100%;
+          opacity: 0;
+        }
+      }
+
+      /* Corner accents on photo */
+      .photo-corner {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-color: var(--cyan);
+        border-style: solid;
+        opacity: 0.7;
+        z-index: 4;
+      }
+      .photo-corner.tl {
+        top: -1px;
+        left: -1px;
+        border-width: 2px 0 0 2px;
+      }
+      .photo-corner.tr {
+        top: -1px;
+        right: -1px;
+        border-width: 2px 2px 0 0;
+      }
+      .photo-corner.bl {
+        bottom: -1px;
+        left: -1px;
+        border-width: 0 0 2px 2px;
+      }
+      .photo-corner.br {
+        bottom: -1px;
+        right: -1px;
+        border-width: 0 2px 2px 0;
+      }
+
+      /* Profile meta */
+      .profile-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .profile-name {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+      }
+
+      .profile-title-tag {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--cyan);
+        letter-spacing: 0.12em;
+      }
+
+      .profile-location {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .profile-location::before {
+        content: '◈';
+        color: var(--violet);
+      }
+
+      .profile-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+      }
+
+      .stat-item {
+        background: var(--bg-raised);
+        border: 1px solid var(--border-subtle);
+        padding: 0.75rem;
+        border-radius: 1px;
+        text-align: center;
+      }
+      .stat-value {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--cyan);
+        line-height: 1;
+      }
+      .stat-label {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 0.25rem;
+      }
+
+      .profile-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.5rem;
+      }
+
+      /* ── Bio section ────────────────────────────────────────── */
+      .bio-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+
+      .bio-block {
+        position: relative;
+      }
+
+      .bio-label {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--violet);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .bio-label::before {
+        content: '>_';
+        color: var(--cyan-dim);
+        margin-right: 0.25rem;
+      }
+
+      .bio-heading {
+        font-family: var(--font-display);
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        letter-spacing: -0.01em;
+      }
+      .bio-heading em {
+        font-style: normal;
+        color: var(--cyan);
+      }
+
+      .bio-text {
+        font-size: 1.05rem;
+        color: var(--text-secondary);
+        line-height: 1.85;
+        font-weight: 300;
+      }
+      .bio-text + .bio-text {
+        margin-top: 1rem;
+      }
+
+      .bio-highlight {
+        display: inline;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+
+      /* AI specialization callout */
+      .ai-callout {
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.04) 0%, rgba(139, 47, 255, 0.04) 100%);
+        border: 1px solid var(--border-subtle);
+        border-left: 2px solid var(--cyan);
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+      }
+      .ai-callout::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, rgba(0, 245, 255, 0.05) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .ai-callout-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .ai-callout-icon {
+        font-family: var(--font-mono);
+        font-size: 1.2rem;
+        color: var(--cyan);
+      }
+
+      .ai-callout-title {
+        font-family: var(--font-display);
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+      }
+
+      .ai-pillars {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
+        margin-top: 1.25rem;
+      }
+
+      .ai-pillar {
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--border-subtle);
+        padding: 1rem;
+        border-radius: 2px;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .ai-pillar:hover {
+        border-color: var(--border-dim);
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.05);
+      }
+
+      .ai-pillar-icon {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .ai-pillar-name {
+        font-family: var(--font-display);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+        margin-bottom: 0.3rem;
+      }
+
+      .ai-pillar-desc {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ── Timeline ───────────────────────────────────────────── */
+      .timeline-section {
+        margin-bottom: 6rem;
+      }
+
+      .timeline-tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .timeline-tab {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition:
+          color 0.25s ease,
+          border-color 0.25s ease;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+      }
+      .timeline-tab:hover {
+        color: var(--text-secondary);
+      }
+      .timeline-tab.active {
+        color: var(--cyan);
+        border-bottom-color: var(--cyan);
+      }
+
+      .timeline-panel {
+        display: none;
+      }
+      .timeline-panel.active {
+        display: block;
+      }
+
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          var(--border-dim) 10%,
+          var(--border-dim) 90%,
+          transparent 100%
+        );
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-bottom: 2.5rem;
+      }
+      .timeline-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -2rem;
+        top: 0.35rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--bg-void);
+        border: 2px solid var(--cyan-dim);
+        transform: translateX(-4px);
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .timeline-item:hover .timeline-dot {
+        border-color: var(--cyan);
+        box-shadow: 0 0 12px var(--cyan-glow-md);
+      }
+      .timeline-dot.current {
+        border-color: var(--cyan);
+        background: var(--cyan);
+        box-shadow: 0 0 12px var(--cyan-glow-md);
+      }
+
+      .timeline-date {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--cyan-dim);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+      }
+
+      .timeline-role {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.03em;
+        margin-bottom: 0.25rem;
+      }
+
+      .timeline-org {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--violet);
+        letter-spacing: 0.08em;
+        margin-bottom: 0.75rem;
+      }
+
+      .timeline-desc {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-weight: 300;
+        max-width: 640px;
+      }
+
+      .timeline-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+      }
+
+      /* ── Philosophy / Values ────────────────────────────────── */
+      .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+
+      .value-card {
+        background: var(--bg-glass);
+        border: 1px solid var(--border-subtle);
+        padding: 1.75rem;
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .value-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.02) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .value-card:hover {
+        border-color: var(--border-dim);
+        transform: translateY(-3px);
+        box-shadow:
+          0 12px 40px rgba(0, 0, 0, 0.4),
+          0 0 20px rgba(0, 245, 255, 0.05);
+      }
+
+      .value-number {
+        font-family: var(--font-display);
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--border-subtle);
+        line-height: 1;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.02em;
+        transition: color 0.3s ease;
+      }
+      .value-card:hover .value-number {
+        color: var(--border-dim);
+      }
+
+      .value-title {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+        margin-bottom: 0.75rem;
+      }
+      .value-title span {
+        color: var(--cyan);
+      }
+
+      .value-desc {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        font-weight: 300;
+      }
+
+      /* ── Philosophy quote ───────────────────────────────────── */
+      .philosophy-quote {
+        background: linear-gradient(135deg, rgba(139, 47, 255, 0.06) 0%, rgba(0, 245, 255, 0.04) 100%);
+        border: 1px solid var(--border-violet);
+        padding: 2.5rem 3rem;
+        border-radius: 2px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 3rem;
+      }
+      .philosophy-quote::before {
+        content: '"';
+        position: absolute;
+        top: -1rem;
+        left: 1.5rem;
+        font-family: var(--font-display);
+        font-size: 8rem;
+        color: var(--violet);
+        opacity: 0.07;
+        line-height: 1;
+      }
+
+      .philosophy-quote blockquote {
+        font-family: var(--font-body);
+        font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+        color: var(--text-primary);
+        line-height: 1.6;
+        font-weight: 300;
+        font-style: italic;
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto 1rem;
+      }
+
+      .philosophy-quote cite {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-style: normal;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── CTA strip ──────────────────────────────────────────── */
+      .about-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+        padding: 2.5rem 3rem;
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.04) 0%, rgba(139, 47, 255, 0.04) 100%);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        margin-top: 4rem;
+      }
+
+      .about-cta-text {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .about-cta-text span {
+        color: var(--cyan);
+      }
+
+      .about-cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 600px) {
+        .about-cta {
+          padding: 1.75rem;
+        }
+        .philosophy-quote {
+          padding: 2rem 1.5rem;
+        }
+        .timeline {
+          padding-left: 1.5rem;
+        }
+        .timeline-dot {
+          left: -1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background layers -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="noise"></div>
+
+    <!-- ── Navigation ─────────────────────────────────────────── -->
+    <nav class="nav" role="navigation">
+      <a href="./index.html" class="nav-logo">
+        DEVFOLIO
+        <span class="accent">_OS</span>
+        <span class="version">v2.4.1</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./index.html" class="nav-link" data-index="00">Home</a></li>
+        <li><a href="./about.html" class="nav-link active" data-index="01">About</a></li>
+        <li><a href="./projects.html" class="nav-link" data-index="02">Projects</a></li>
+        <li><a href="./skills.html" class="nav-link" data-index="03">Skills</a></li>
+        <li><a href="./contact.html" class="nav-link" data-index="04">Contact</a></li>
+      </ul>
+
+      <div class="nav-status">
+        <span class="nav-status-dot"></span>
+        <span>SYSTEM ONLINE</span>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- ── Page ───────────────────────────────────────────────── -->
+    <div class="page">
+      <!-- Hero -->
+      <div class="about-hero reveal">
+        <div class="about-hero-content">
+          <div class="about-hero-eyebrow">IDENTITY_FILE // 001</div>
+          <h1 class="about-hero-title glitch" data-text="ABOUT ME">
+            ABOUT
+            <em>ME</em>
+          </h1>
+          <p class="about-hero-sub">
+            &gt; loading_profile.json &nbsp;██████████████ 100% &nbsp;
+            <span class="terminal-cursor"></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ── Main Content ───────────────────────────────────────── -->
+      <section class="section">
+        <div class="about-intro">
+          <!-- ── Profile Card ──────────────────────────────────── -->
+          <div class="profile-card reveal">
+            <div class="profile-photo-wrap">
+              <div class="profile-photo-frame">
+                <img class="profile-photo" src="./assets/profile.jpg" alt="Sobi Mohamed" />
+                <div class="profile-scan-line"></div>
+                <div class="photo-corner tl"></div>
+                <div class="photo-corner tr"></div>
+                <div class="photo-corner bl"></div>
+                <div class="photo-corner br"></div>
+              </div>
+            </div>
+
+            <div class="profile-meta">
+              <div class="profile-name">SOBI MOHAMED</div>
+              <div class="profile-title-tag">&lt; AI-POWERED Software Developer /&gt;</div>
+              <div class="profile-location">Yaounde, CM · UTC+1</div>
+
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <div class="stat-value">2+</div>
+                  <div class="stat-label">Yrs Exp</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">10+</div>
+                  <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">12</div>
+                  <div class="stat-label">Open Src</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">&infin;</div>
+                  <div class="stat-label">Vision</div>
+                </div>
+              </div>
+
+              <div class="profile-tags">
+                <span class="tag tag-cyan">AI-Powered</span>
+                <span class="tag tag-violet">Self-Taught</span>
+                <span class="tag tag-dim">Builder</span>
+                <span class="tag tag-cyan">Problem Solver</span>
+                <span class="tag tag-dim">Resilient</span>
+              </div>
+            </div>
+
+            <!-- Mini terminal -->
+            <div class="terminal" style="margin-top: 1.5rem">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">status.sh</span>
+              </div>
+              <div class="terminal-body" style="padding: 1rem 1.25rem; font-size: 0.72rem; line-height: 1.8">
+                <div class="terminal-line">
+                  <span class="terminal-prompt">$</span>
+                  <span class="terminal-cmd">whoami</span>
+                </div>
+                <div style="color: var(--cyan); padding-left: 1rem">sobi_mohamed</div>
+                <div class="terminal-line" style="margin-top: 0.4rem">
+                  <span class="terminal-prompt">$</span>
+                  <span class="terminal-cmd">status --current</span>
+                </div>
+                <div style="color: #00ff88; padding-left: 1rem">● Open to opportunities</div>
+                <div class="terminal-line" style="margin-top: 0.4rem">
+                  <span class="terminal-prompt">$</span>
+                  <span class="terminal-cursor"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Bio ───────────────────────────────────────────── -->
+          <div class="bio-section">
+            <!-- Origin -->
+            <div class="bio-block reveal reveal-delay-1">
+              <div class="bio-label">ORIGIN_STORY</div>
+              <h2 class="bio-heading">
+                Built by
+                <em>curiosity</em>
+                driven by vision
+              </h2>
+              <p class="bio-text">
+                In 2017 I watched the tech industry transform in real time — the opportunities were undeniable, and I
+                decided to be part of it. The road wasn't straight. A demanding schedule, limited resources, and
+                repeated restarts tested that decision more than once. But every time I stepped away, I came back.
+                <span class="bio-highlight">Persistence isn't a personality trait — it's a choice I keep making.</span>
+              </p>
+              <p class="bio-text" style="margin-top: 1rem">
+                When AI started closing the gap between intent and execution, something clicked. I didn't need to master
+                every tool from scratch — I needed to master
+                <span class="bio-highlight">how to think clearly and build effectively with the tools available.</span>
+                That shift changed everything. A background in science and engineering gave me the analytical
+                foundation; AI gave me the leverage to finally build at the speed of ideas.
+              </p>
+            </div>
+
+            <!-- AI section -->
+            <div class="bio-block reveal reveal-delay-2">
+              <div class="ai-callout">
+                <div class="ai-callout-header">
+                  <div class="ai-callout-icon">⬡</div>
+                  <div class="ai-callout-title">WORKING WITH AI // CURRENT FOCUS</div>
+                </div>
+                <p class="bio-text" style="font-size: 0.95rem">
+                  I build software by combining clear thinking with AI-assisted execution — moving from idea to working
+                  product faster than traditional development allows. I'm not limited to one stack or one domain.
+                  Whether it's a web app, an automation tool, or a data pipeline, I bring the same approach:
+                  <span class="bio-highlight">
+                    understand the problem deeply, then use every available tool to solve it well.
+                  </span>
+                  Right now I'm focused on delivering real value for real clients — and building toward a larger vision
+                  one project at a time.
+                </p>
+                <div class="ai-pillars">
+                  <div class="ai-pillar">
+                    <span class="ai-pillar-icon">🧠</span>
+                    <div class="ai-pillar-name">LLM APPS</div>
+                    <div class="ai-pillar-desc">RAG pipelines, agents, and prompt-engineered production systems</div>
+                  </div>
+                  <div class="ai-pillar">
+                    <span class="ai-pillar-icon">⚙️</span>
+                    <div class="ai-pillar-name">ML OPS</div>
+                    <div class="ai-pillar-desc">Fine-tuning, evaluation, and deploying models at scale</div>
+                  </div>
+                  <div class="ai-pillar">
+                    <span class="ai-pillar-icon">🔗</span>
+                    <div class="ai-pillar-name">AI TOOLING</div>
+                    <div class="ai-pillar-desc">Dev tools, APIs, and infrastructure for AI-first products</div>
+                  </div>
+                  <div class="ai-pillar">
+                    <span class="ai-pillar-icon">🎨</span>
+                    <div class="ai-pillar-name">UX × AI</div>
+                    <div class="ai-pillar-desc">Designing interfaces where AI feels invisible and powerful</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Timeline ─────────────────────────────────────────── -->
+        <div class="timeline-section reveal">
+          <div class="section-tag">HISTORY_LOG</div>
+          <h2 class="section-title">
+            Experience &amp;
+            <em>Education</em>
+          </h2>
+
+          <div class="timeline-tabs" role="tablist">
+            <button class="timeline-tab active" role="tab" data-panel="experience">Work</button>
+            <button class="timeline-tab" role="tab" data-panel="education">Education</button>
+          </div>
+
+          <!-- Experience -->
+          <div class="timeline-panel active" id="experience">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot current"></div>
+                <div class="timeline-date">2024 — PRESENT</div>
+                <div class="timeline-role">Independent AI-Powered Developer</div>
+                <div class="timeline-org">FREELANCE // YAOUNDÉ, CM · REMOTE</div>
+                <p class="timeline-desc">
+                  Building software products independently using AI-assisted development. Focused on delivering web
+                  applications, automation tools, and digital solutions for clients. Combining a self-taught technical
+                  foundation with modern AI tooling to ship faster and smarter.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">HTML/CSS</span>
+                  <span class="tag tag-cyan">JavaScript</span>
+                  <span class="tag tag-violet">AI Tools</span>
+                  <span class="tag tag-dim">Claude</span>
+                  <span class="tag tag-dim">Problem Solving</span>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2017 — 2024</div>
+                <div class="timeline-role">Self-Directed Learning</div>
+                <div class="timeline-org">INDEPENDENT // PERSISTENT THROUGH INTERRUPTIONS</div>
+                <p class="timeline-desc">
+                  Seven years of on-and-off learning through real constraints — tight schedules, limited resources, and
+                  no formal tech environment. Studied programming, web development, and software concepts across
+                  multiple attempts. Each restart built on the last. The rise of AI finally provided the leverage to
+                  turn accumulated knowledge into real output.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">Web Dev</span>
+                  <span class="tag tag-dim">Self-Taught</span>
+                  <span class="tag tag-violet">Resilience</span>
+                  <span class="tag tag-dim">Consistency</span>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2017</div>
+                <div class="timeline-role">The Decision</div>
+                <div class="timeline-org">YAOUNDÉ, CM // POINT OF NO RETURN</div>
+                <p class="timeline-desc">
+                  Watched the tech industry evolve and recognized the scale of opportunity it represented. Made the
+                  deliberate choice to pursue software development despite having no roadmap, no mentor, and no
+                  guarantee. That decision — made with nothing but conviction — is the foundation everything else is
+                  built on.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">Origin</span>
+                  <span class="tag tag-violet">Vision</span>
+                  <span class="tag tag-dim">Self-Directed</span>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">2019 — 2020</div>
+                <div class="timeline-role">ML Research Intern</div>
+                <div class="timeline-org">STANFORD NLP GROUP // STANFORD, CA</div>
+                <p class="timeline-desc">
+                  Contributed to research on low-resource language translation under Prof. Christopher Manning.
+                  Implemented transformer fine-tuning experiments and co-authored one workshop paper on cross-lingual
+                  transfer learning.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">PyTorch</span>
+                  <span class="tag tag-violet">Transformers</span>
+                  <span class="tag tag-dim">CUDA</span>
+                  <span class="tag tag-dim">Research</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="timeline-panel" id="education">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">ONGOING</div>
+                <div class="timeline-role">Self-Directed Technical Education</div>
+                <div class="timeline-org">INDEPENDENT // COURSES, PROJECTS, EXPERIMENTS</div>
+                <p class="timeline-desc">
+                  Continuous learning across web development, software engineering, and AI-assisted development.
+                  Building real projects as the primary learning method — shipping, breaking, fixing, and improving.
+                  Supplemented by online resources, documentation, and hands-on experimentation.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">Project-Based</span>
+                  <span class="tag tag-dim">Self-Taught</span>
+                  <span class="tag tag-violet">AI-Augmented</span>
+                  <span class="tag tag-dim">Ongoing</span>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">DROPPED OUT</div>
+                <div class="timeline-role">Civil Engineering — College</div>
+                <div class="timeline-org">CAMEROON // ANALYTICAL FOUNDATION</div>
+                <p class="timeline-desc">
+                  Pursued a college degree in Civil Engineering before life circumstances interrupted. The exposure to
+                  structural thinking, mathematics, and problem-solving methodology left a lasting mark. Engineering
+                  teaches you that every system has constraints — and working within them intelligently is the real
+                  skill.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">Mathematics</span>
+                  <span class="tag tag-dim">Physics</span>
+                  <span class="tag tag-violet">Systems Thinking</span>
+                </div>
+              </div>
+
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date">PRE-2017</div>
+                <div class="timeline-role">High School — Science Track</div>
+                <div class="timeline-org">CAMEROON // STEM FOUNDATION</div>
+                <p class="timeline-desc">
+                  Graduated with a science major covering Chemistry, Physics, Mathematics, and Further Mathematics.
+                  Built an early foundation in logical reasoning and quantitative thinking — the same mental models that
+                  now apply directly to software architecture and problem decomposition.
+                </p>
+                <div class="timeline-tags">
+                  <span class="tag tag-cyan">Chemistry</span>
+                  <span class="tag tag-dim">Physics</span>
+                  <span class="tag tag-violet">Further Maths</span>
+                  <span class="tag tag-dim">Science</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Philosophy ─────────────────────────────────────── -->
+        <div class="reveal">
+          <div class="section-tag">OPERATING_PRINCIPLES</div>
+          <h2 class="section-title">
+            Values &amp;
+            <em>Philosophy</em>
+          </h2>
+
+          <div class="philosophy-quote">
+            <blockquote>
+              "I didn't wait for the perfect conditions. I built with what I had, learned from what broke, and kept
+              going when it made no sense to. That's not a strategy — that's the only way forward I know."
+            </blockquote>
+            <cite>— Sobi Mohamed</cite>
+          </div>
+
+          <div class="values-grid">
+            <div class="value-card reveal reveal-delay-1">
+              <div class="value-number">01</div>
+              <div class="value-title">
+                CRAFT
+                <span>&gt; CARGO-CULT</span>
+              </div>
+              <p class="value-desc">
+                I'd rather deeply understand one tool than superficially use ten. Every abstraction I reach for, I've
+                tried to understand what's underneath it first. Real mastery comes from first principles, not from
+                copy-pasting Stack Overflow.
+              </p>
+            </div>
+
+            <div class="value-card reveal reveal-delay-2">
+              <div class="value-number">02</div>
+              <div class="value-title">
+                SHIP
+                <span>&gt; PERFECT</span>
+              </div>
+              <p class="value-desc">
+                Software that exists and works beats software that's ideal and hypothetical. I maintain a strong bias
+                toward momentum — iterating in public, learning from real users, and treating "done" as a competitive
+                advantage.
+              </p>
+            </div>
+
+            <div class="value-card reveal reveal-delay-3">
+              <div class="value-number">03</div>
+              <div class="value-title">
+                OPEN
+                <span>&gt; CLOSED</span>
+              </div>
+              <p class="value-desc">
+                The knowledge and tools that got me here came from people who shared freely. I contribute to open
+                source, write in public, and believe that transparency in AI development isn't idealism — it's a safety
+                requirement.
+              </p>
+            </div>
+
+            <div class="value-card reveal reveal-delay-4">
+              <div class="value-number">04</div>
+              <div class="value-title">
+                IMPACT
+                <span>&gt; METRICS</span>
+              </div>
+              <p class="value-desc">
+                I optimize for actual human value created, not numbers that look good on a dashboard. The most important
+                question about any system I build is: does this make someone's life meaningfully better?
+              </p>
+            </div>
+
+            <div class="value-card reveal reveal-delay-5">
+              <div class="value-number">05</div>
+              <div class="value-title">
+                CURIOUS
+                <span>&gt; CERTAIN</span>
+              </div>
+              <p class="value-desc">
+                The smartest move in a fast-moving field is staying genuinely uncertain and curious. I read outside my
+                domain constantly, change my mind when evidence demands it, and distrust anyone — including myself —
+                who's too confident.
+              </p>
+            </div>
+
+            <div class="value-card reveal reveal-delay-5">
+              <div class="value-number">06</div>
+              <div class="value-title">
+                HUMANS
+                <span>&gt; SYSTEMS</span>
+              </div>
+              <p class="value-desc">
+                Technology serves people, not the other way around. I hold a strong ethical line around AI that
+                manipulates, deceives, or disempowers. Building AI that augments human agency is the only work worth
+                doing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── CTA Strip ──────────────────────────────────────── -->
+        <div class="about-cta reveal">
+          <div class="about-cta-text">
+            Ready to build something
+            <span>extraordinary</span>
+            ?
+          </div>
+          <div class="about-cta-buttons">
+            <a href="./projects.html" class="btn btn-outline">View Projects</a>
+            <a href="./contact.html" class="btn btn-primary">Get In Touch</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── Footer ─────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer-left">
+        DEVFOLIO_OS &nbsp;// &nbsp;IDENTITY_MODULE &nbsp;// &nbsp;
+        <span id="footerTime"></span>
+      </div>
+      <div class="footer-right">
+        <a href="./index.html">HOME</a>
+        <a href="./projects.html">PROJECTS</a>
+        <a href="./contact.html">CONTACT</a>
+      </div>
+    </footer>
+
+    <script src="./main.js"></script>
+    <script>
+      /* ── Page-local JS ──────────────────────────────────────── */
+
+      // Timeline tabs
+      document.querySelectorAll(".timeline-tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const panelId = tab.dataset.panel;
+          document.querySelectorAll(".timeline-tab").forEach((t) => t.classList.remove("active"));
+          document.querySelectorAll(".timeline-panel").forEach((p) => p.classList.remove("active"));
+          tab.classList.add("active");
+          document.getElementById(panelId).classList.add("active");
+        });
+      });
+
+      // Live time in footer
+      function updateTime() {
+        const now = new Date();
+        const t = now.toLocaleTimeString("en-US", {
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        const d = now.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" });
+        const el = document.getElementById("footerTime");
+        if (el) el.textContent = `${d} // ${t}`;
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+    </script>
+  </body>
+</html>
