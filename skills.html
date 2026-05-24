@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEVFOLIO_OS // Skills</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      /* ── Skills Page Specific ─────────────────────────────── */
+
+      /* Hero strip */
+      .skills-hero {
+        padding: clamp(3rem, 8vh, 5rem) clamp(1.5rem, 8vw, 7rem) 0;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .skills-hero-inner {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 2rem;
+      }
+      .skills-stats {
+        display: flex;
+        gap: 2.5rem;
+        flex-wrap: wrap;
+      }
+      .skill-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .skill-stat-num {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--cyan);
+        text-shadow: 0 0 20px var(--cyan-glow-md);
+        line-height: 1;
+      }
+      .skill-stat-label {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text-muted);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* Proficiency legend */
+      .proficiency-legend {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .legend-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .legend-dot.expert {
+        background: var(--cyan);
+        box-shadow: 0 0 6px var(--cyan);
+      }
+      .legend-dot.advanced {
+        background: var(--violet);
+        box-shadow: 0 0 6px var(--violet);
+      }
+      .legend-dot.proficient {
+        background: #00ff88;
+        box-shadow: 0 0 6px #00ff88;
+      }
+      .legend-dot.learning {
+        background: var(--electric);
+        box-shadow: 0 0 6px var(--electric);
+      }
+
+      /* ── Category Grid ────────────────────────────────────── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+      }
+
+      /* ── Skill Category Card ──────────────────────────────── */
+      .skill-category {
+        background: var(--bg-glass);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        padding: 1.75rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .skill-category::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.03) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .skill-category:hover {
+        border-color: var(--border-dim);
+        box-shadow:
+          0 0 30px rgba(0, 245, 255, 0.06),
+          0 8px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .category-header {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .category-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-dim);
+        font-size: 1rem;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .category-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--cyan-glow);
+      }
+      .category-title {
+        font-family: var(--font-display);
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+      }
+      .category-count {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: var(--cyan-dim);
+        margin-top: 0.15rem;
+        letter-spacing: 0.1em;
+      }
+
+      /* ── Skill Bar ────────────────────────────────────────── */
+      .skill-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.95rem;
+      }
+      .skill-item {
+        position: relative;
+      }
+      .skill-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.4rem;
+      }
+      .skill-name {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.06em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .skill-name .skill-badge {
+        font-size: 0.55rem;
+        padding: 0.1rem 0.4rem;
+        border-radius: 1px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .badge-expert {
+        color: var(--cyan);
+        background: rgba(0, 245, 255, 0.08);
+        border: 1px solid rgba(0, 245, 255, 0.2);
+      }
+      .badge-advanced {
+        color: var(--electric);
+        background: rgba(139, 47, 255, 0.08);
+        border: 1px solid rgba(139, 47, 255, 0.2);
+      }
+      .badge-proficient {
+        color: #00ff88;
+        background: rgba(0, 255, 136, 0.08);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+      }
+      .badge-learning {
+        color: #ffbd2e;
+        background: rgba(255, 189, 46, 0.08);
+        border: 1px solid rgba(255, 189, 46, 0.2);
+      }
+
+      .skill-pct {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+      }
+      .skill-track {
+        height: 3px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 2px;
+        overflow: visible;
+        position: relative;
+      }
+      .skill-fill {
+        height: 100%;
+        border-radius: 2px;
+        width: 0%;
+        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+      }
+      .skill-fill::after {
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+      .fill-expert {
+        background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+        box-shadow: 0 0 8px var(--cyan-glow-md);
+      }
+      .fill-expert::after {
+        background: var(--cyan);
+        box-shadow: 0 0 8px var(--cyan);
+      }
+      .fill-advanced {
+        background: linear-gradient(90deg, var(--violet-dim), var(--electric));
+        box-shadow: 0 0 8px var(--violet-glow);
+      }
+      .fill-advanced::after {
+        background: var(--electric);
+        box-shadow: 0 0 8px var(--electric);
+      }
+      .fill-proficient {
+        background: linear-gradient(90deg, #00cc6a, #00ff88);
+        box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
+      }
+      .fill-proficient::after {
+        background: #00ff88;
+        box-shadow: 0 0 8px #00ff88;
+      }
+      .fill-learning {
+        background: linear-gradient(90deg, #c48a00, #ffbd2e);
+        box-shadow: 0 0 8px rgba(255, 189, 46, 0.3);
+      }
+      .fill-learning::after {
+        background: #ffbd2e;
+        box-shadow: 0 0 8px #ffbd2e;
+      }
+
+      /* ── AI Tools Section ─────────────────────────────────── */
+      .ai-section {
+        margin-top: 1.5rem;
+      }
+      .ai-tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .ai-tool-card {
+        background: var(--bg-glass);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        padding: 1.5rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: default;
+      }
+      .ai-tool-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.04) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .ai-tool-card:hover {
+        border-color: var(--border-bright);
+        box-shadow:
+          0 0 30px var(--cyan-glow),
+          0 0 60px rgba(0, 245, 255, 0.04);
+        transform: translateY(-3px);
+      }
+      .ai-tool-card:hover .ai-tool-glow {
+        opacity: 1;
+      }
+      .ai-tool-glow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .ai-tool-icon {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        border: 1px solid var(--border-dim);
+        position: relative;
+      }
+      .ai-tool-icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--cyan-glow);
+        opacity: 0.5;
+      }
+      .ai-tool-name {
+        font-family: var(--font-display);
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.05em;
+      }
+      .ai-tool-use {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        letter-spacing: 0.06em;
+        line-height: 1.5;
+      }
+      .ai-tool-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-top: auto;
+      }
+
+      /* ── Tools & Software Grid ────────────────────────────── */
+      .tools-section {
+        margin-top: 1.5rem;
+      }
+      .tools-pill-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-top: 1.75rem;
+      }
+      .tool-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-glass);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.07em;
+        cursor: default;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .tool-pill::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--cyan-glow);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+      .tool-pill:hover {
+        border-color: var(--border-dim);
+        color: var(--cyan);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 245, 255, 0.08);
+      }
+      .tool-pill:hover::before {
+        opacity: 1;
+      }
+      .tool-pill-icon {
+        font-size: 0.9rem;
+      }
+
+      /* ── Currently Learning ───────────────────────────────── */
+      .learning-section {
+        margin-top: 1.5rem;
+      }
+      .learning-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+        margin-top: 1.75rem;
+      }
+      .learning-card {
+        background: var(--bg-glass);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      .learning-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--violet), var(--electric));
+        opacity: 0.7;
+      }
+      .learning-card:hover {
+        border-color: var(--border-violet);
+        box-shadow: 0 0 25px var(--violet-glow);
+        transform: translateY(-3px);
+      }
+      .learning-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      .learning-card-title {
+        font-family: var(--font-display);
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.04em;
+      }
+      .learning-progress-label {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--electric);
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+      }
+      .learning-desc {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      .learning-track {
+        height: 2px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .learning-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--violet-dim), var(--electric));
+        box-shadow: 0 0 8px var(--violet-glow);
+        width: 0%;
+        transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .learning-eta {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: var(--text-muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 0.5rem;
+      }
+
+      /* ── System Readout Bar ───────────────────────────────── */
+      .system-readout {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 0.75rem 1.25rem;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--border-subtle);
+        border-radius: 2px;
+        margin-top: 2rem;
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+      }
+      .readout-item {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .readout-label {
+        color: var(--cyan-dim);
+      }
+      .readout-sep {
+        color: var(--border-dim);
+        user-select: none;
+      }
+      .readout-pulse {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #00ff88;
+        box-shadow: 0 0 6px #00ff88;
+        animation: pulse-dot 2s ease-in-out infinite;
+        margin-right: 0.25rem;
+      }
+
+      /* ── Responsive ───────────────────────────────────────── */
+      @media (max-width: 768px) {
+        .skills-hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .skills-stats {
+          gap: 1.5rem;
+        }
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+        .ai-tools-grid {
+          grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background layers -->
+    <div class="noise"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- ── Navigation ──────────────────────────────────────── -->
+    <nav class="nav" role="navigation">
+      <a href="./index.html" class="nav-logo">
+        DEVFOLIO
+        <span class="accent">_OS</span>
+        <span class="version">v2.4.1</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./index.html" class="nav-link" data-index="00">Home</a></li>
+        <li><a href="./about.html" class="nav-link" data-index="01">About</a></li>
+        <li><a href="./projects.html" class="nav-link" data-index="02">Projects</a></li>
+        <li><a href="./skills.html" class="nav-link active" data-index="03">Skills</a></li>
+        <li><a href="./contact.html" class="nav-link" data-index="04">Contact</a></li>
+      </ul>
+
+      <div class="nav-status">
+        <div class="nav-status-dot"></div>
+        SYS_ONLINE
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- ── Page ────────────────────────────────────────────── -->
+    <main class="page">
+      <!-- Hero Strip -->
+      <div class="skills-hero">
+        <div class="skills-hero-inner">
+          <div>
+            <p class="section-tag">skill_matrix.sys</p>
+            <h1 class="section-title">
+              Technical
+              <em>Arsenal</em>
+            </h1>
+            <p class="section-sub">
+              An AI-powered developer who ships real products — combining a self-taught web foundation with
+              cutting-edge AI tooling to build faster and smarter.
+            </p>
+          </div>
+          <div>
+            <div class="skills-stats reveal">
+              <div class="skill-stat">
+                <span class="skill-stat-num" data-count="4">0</span>
+                <span class="skill-stat-label">Languages</span>
+              </div>
+              <div class="skill-stat">
+                <span class="skill-stat-num" data-count="5">0</span>
+                <span class="skill-stat-label">Frameworks</span>
+              </div>
+              <div class="skill-stat">
+                <span class="skill-stat-num" data-count="6">0</span>
+                <span class="skill-stat-label">AI Tools</span>
+              </div>
+              <div class="skill-stat">
+                <span class="skill-stat-num" data-count="3">0</span>
+                <span class="skill-stat-label">Learning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Readout -->
+        <div class="system-readout reveal reveal-delay-1">
+          <span class="readout-item">
+            <span class="readout-pulse"></span>
+            <span class="readout-label">STATUS:</span>
+            ACTIVELY_BUILDING
+          </span>
+          <span class="readout-sep">|</span>
+          <span class="readout-item">
+            <span class="readout-label">FOCUS:</span>
+            AI_ASSISTED_DEV
+          </span>
+          <span class="readout-sep">|</span>
+          <span class="readout-item">
+            <span class="readout-label">MODE:</span>
+            FULL_STACK
+          </span>
+          <span class="readout-sep">|</span>
+          <span class="readout-item">
+            <span class="readout-label">EXP:</span>
+            2+ YRS
+          </span>
+        </div>
+
+        <!-- Proficiency Legend -->
+        <div class="proficiency-legend" style="margin-top: 1.25rem" aria-label="Proficiency legend">
+          <div class="legend-item">
+            <div class="legend-dot expert"></div>
+            Expert (90–100%)
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot advanced"></div>
+            Advanced (70–89%)
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot proficient"></div>
+            Proficient (50–69%)
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot learning"></div>
+            Learning (&lt;50%)
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Skills Matrix Section ───────────────────────────── -->
+      <section class="section" aria-labelledby="skills-heading">
+        <p class="section-tag">core_competencies</p>
+        <h2 class="section-title" id="skills-heading">
+          Skill
+          <em>Matrix</em>
+        </h2>
+
+        <div class="skills-grid">
+
+          <!-- Languages -->
+          <div class="skill-category reveal card" data-category="languages">
+            <div class="card-corner tl"></div>
+            <div class="card-corner br"></div>
+            <div class="category-header">
+              <div class="category-icon">⌨</div>
+              <div>
+                <div class="category-title">Languages</div>
+                <div class="category-count">04 entries</div>
+              </div>
+            </div>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">HTML / CSS <span class="skill-badge badge-expert">Expert</span></span>
+                  <span class="skill-pct">95%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-expert" data-width="95"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">JavaScript <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">82%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="82"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Python <span class="skill-badge badge-proficient">Proficient</span></span>
+                  <span class="skill-pct">65%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-proficient" data-width="65"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Bash / Shell <span class="skill-badge badge-learning">Learning</span></span>
+                  <span class="skill-pct">42%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-learning" data-width="42"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frameworks & Libraries -->
+          <div class="skill-category reveal reveal-delay-1 card" data-category="frameworks">
+            <div class="card-corner tl"></div>
+            <div class="card-corner br"></div>
+            <div class="category-header">
+              <div class="category-icon">⬡</div>
+              <div>
+                <div class="category-title">Frameworks & Libraries</div>
+                <div class="category-count">05 entries</div>
+              </div>
+            </div>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Vanilla JS / Web APIs <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">84%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="84"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Tailwind CSS <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">80%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="80"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Node.js / Express <span class="skill-badge badge-proficient">Proficient</span></span>
+                  <span class="skill-pct">65%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-proficient" data-width="65"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">React <span class="skill-badge badge-proficient">Proficient</span></span>
+                  <span class="skill-pct">58%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-proficient" data-width="58"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">FastAPI <span class="skill-badge badge-learning">Learning</span></span>
+                  <span class="skill-pct">45%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-learning" data-width="45"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI & Prompt Engineering -->
+          <div class="skill-category reveal reveal-delay-2 card" data-category="aiml">
+            <div class="card-corner tl"></div>
+            <div class="card-corner br"></div>
+            <div class="category-header">
+              <div class="category-icon">◈</div>
+              <div>
+                <div class="category-title">AI & Prompt Engineering</div>
+                <div class="category-count">06 entries</div>
+              </div>
+            </div>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">AI-Assisted Development <span class="skill-badge badge-expert">Expert</span></span>
+                  <span class="skill-pct">95%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-expert" data-width="95"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Prompt Engineering <span class="skill-badge badge-expert">Expert</span></span>
+                  <span class="skill-pct">92%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-expert" data-width="92"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Anthropic (Claude) API <span class="skill-badge badge-expert">Expert</span></span>
+                  <span class="skill-pct">90%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-expert" data-width="90"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">OpenAI API <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">82%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="82"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">LLM App Building <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">76%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="76"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">RAG / Vector Databases <span class="skill-badge badge-proficient">Proficient</span></span>
+                  <span class="skill-pct">58%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-proficient" data-width="58"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deployment & Tooling -->
+          <div class="skill-category reveal reveal-delay-3 card" data-category="devops">
+            <div class="card-corner tl"></div>
+            <div class="card-corner br"></div>
+            <div class="category-header">
+              <div class="category-icon">⬢</div>
+              <div>
+                <div class="category-title">Deployment & Tooling</div>
+                <div class="category-count">04 entries</div>
+              </div>
+            </div>
+            <div class="skill-list">
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Git / GitHub <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">80%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="80"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Vercel / Netlify <span class="skill-badge badge-advanced">Advanced</span></span>
+                  <span class="skill-pct">78%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-advanced" data-width="78"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">CLI / Terminal <span class="skill-badge badge-proficient">Proficient</span></span>
+                  <span class="skill-pct">65%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-proficient" data-width="65"></div></div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">Docker (basics) <span class="skill-badge badge-learning">Learning</span></span>
+                  <span class="skill-pct">38%</span>
+                </div>
+                <div class="skill-track"><div class="skill-fill fill-learning" data-width="38"></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ── AI Tools Section ─────────────────────────────────── -->
+      <section class="section ai-section" aria-labelledby="ai-heading">
+        <p class="section-tag">ai_augmentation.log</p>
+        <h2 class="section-title" id="ai-heading">
+          AI Tools I
+          <em>Use Daily</em>
+        </h2>
+        <p class="section-sub">
+          The AI tools I rely on daily — each one chosen for a specific job in my workflow.
+        </p>
+
+        <div class="ai-tools-grid">
+
+          <div class="ai-tool-card reveal">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">⚡</div>
+            <div>
+              <div class="ai-tool-name">Claude (Anthropic)</div>
+              <div class="ai-tool-use">Primary tool — architecture planning, building full features, code review, and complex reasoning across all my projects.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-cyan">Code</span>
+              <span class="tag tag-cyan">Reasoning</span>
+              <span class="tag tag-cyan">Build</span>
+            </div>
+          </div>
+
+          <div class="ai-tool-card reveal reveal-delay-1">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">⬡</div>
+            <div>
+              <div class="ai-tool-name">Cursor AI</div>
+              <div class="ai-tool-use">AI-first editor for codebase-aware multi-file edits, inline generation, and natural language refactoring.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-violet">Editor</span>
+              <span class="tag tag-violet">Refactor</span>
+            </div>
+          </div>
+
+          <div class="ai-tool-card reveal reveal-delay-2">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">◈</div>
+            <div>
+              <div class="ai-tool-name">ChatGPT (OpenAI)</div>
+              <div class="ai-tool-use">Rapid brainstorming, debugging sessions, first-draft content, and second-opinion checks on architecture decisions.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-cyan">Ideation</span>
+              <span class="tag tag-cyan">Debug</span>
+            </div>
+          </div>
+
+          <div class="ai-tool-card reveal reveal-delay-3">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">∞</div>
+            <div>
+              <div class="ai-tool-name">v0 by Vercel</div>
+              <div class="ai-tool-use">React UI generation and component scaffolding — turning design ideas into working Tailwind-styled code fast.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-cyan">UI Gen</span>
+              <span class="tag tag-cyan">React</span>
+            </div>
+          </div>
+
+          <div class="ai-tool-card reveal reveal-delay-4">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">▣</div>
+            <div>
+              <div class="ai-tool-name">Perplexity AI</div>
+              <div class="ai-tool-use">Real-time research with cited sources — exploring unfamiliar APIs, tech concepts, and documentation fast.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-cyan">Research</span>
+              <span class="tag tag-cyan">Sources</span>
+            </div>
+          </div>
+
+          <div class="ai-tool-card reveal reveal-delay-5">
+            <div class="ai-tool-glow"></div>
+            <div class="ai-tool-icon">⌥</div>
+            <div>
+              <div class="ai-tool-name">GitHub Copilot</div>
+              <div class="ai-tool-use">Inline autocomplete for boilerplate-heavy work — repetitive patterns, test stubs, and utility functions.</div>
+            </div>
+            <div class="ai-tool-tags">
+              <span class="tag tag-violet">Autocomplete</span>
+              <span class="tag tag-violet">IDE</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ── Tools & Software Section ────────────────────────── -->
+      <section class="section tools-section" aria-labelledby="tools-heading">
+        <p class="section-tag">toolchain.cfg</p>
+        <h2 class="section-title" id="tools-heading">
+          Tools &
+          <em>Software</em>
+        </h2>
+        <p class="section-sub">
+          The everyday tools and platforms that make up my actual working environment.
+        </p>
+
+        <div class="tools-pill-grid">
+          <!-- Dev Environment -->
+          <div class="tool-pill reveal"><span class="tool-pill-icon">🖥</span> VS Code</div>
+          <div class="tool-pill reveal"><span class="tool-pill-icon">🐙</span> Git / GitHub</div>
+          <div class="tool-pill reveal"><span class="tool-pill-icon">⌃</span> Terminal / Zsh</div>
+          <div class="tool-pill reveal"><span class="tool-pill-icon">📦</span> npm / Node</div>
+          <!-- Design -->
+          <div class="tool-pill reveal reveal-delay-1"><span class="tool-pill-icon">🎨</span> Figma</div>
+          <div class="tool-pill reveal reveal-delay-1"><span class="tool-pill-icon">✏️</span> Excalidraw</div>
+          <!-- Project & Docs -->
+          <div class="tool-pill reveal reveal-delay-2"><span class="tool-pill-icon">📋</span> Notion</div>
+          <div class="tool-pill reveal reveal-delay-2"><span class="tool-pill-icon">💬</span> Discord</div>
+          <!-- Deployment -->
+          <div class="tool-pill reveal reveal-delay-3"><span class="tool-pill-icon">🚀</span> Vercel</div>
+          <div class="tool-pill reveal reveal-delay-3"><span class="tool-pill-icon">🌐</span> Netlify</div>
+          <div class="tool-pill reveal reveal-delay-3"><span class="tool-pill-icon">☁️</span> GitHub Pages</div>
+          <!-- AI Tools -->
+          <div class="tool-pill reveal reveal-delay-4"><span class="tool-pill-icon">⚡</span> Claude.ai</div>
+          <div class="tool-pill reveal reveal-delay-4"><span class="tool-pill-icon">🤖</span> ChatGPT</div>
+          <div class="tool-pill reveal reveal-delay-4"><span class="tool-pill-icon">⬡</span> Cursor</div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ── Currently Learning Section ──────────────────────── -->
+      <section class="section learning-section" aria-labelledby="learning-heading">
+        <p class="section-tag">skill_install.queue</p>
+        <h2 class="section-title" id="learning-heading">
+          Currently
+          <em>Learning</em>
+        </h2>
+        <p class="section-sub">
+          Areas I'm actively building toward — honest about where I am and where I'm heading.
+        </p>
+
+        <div class="learning-grid">
+
+          <div class="learning-card reveal">
+            <div class="learning-card-header">
+              <div class="learning-card-title">Python — Intermediate</div>
+              <div class="learning-progress-label">48%</div>
+            </div>
+            <p class="learning-desc">
+              Deepening Python skills for scripting, automation, and backend work — focusing on clean code patterns,
+              file handling, and API integration.
+            </p>
+            <div class="learning-track">
+              <div class="learning-fill" data-width="48"></div>
+            </div>
+            <div class="learning-eta">ONGOING · Source: Docs, projects, AI-assisted practice</div>
+          </div>
+
+          <div class="learning-card reveal reveal-delay-1">
+            <div class="learning-card-header">
+              <div class="learning-card-title">React / Next.js</div>
+              <div class="learning-progress-label">38%</div>
+            </div>
+            <p class="learning-desc">
+              Building toward production-ready frontend apps — learning component architecture, hooks, routing,
+              and server-side rendering with Next.js.
+            </p>
+            <div class="learning-track">
+              <div class="learning-fill" data-width="38"></div>
+            </div>
+            <div class="learning-eta">ONGOING · Source: Official docs + real project builds</div>
+          </div>
+
+          <div class="learning-card reveal reveal-delay-2">
+            <div class="learning-card-header">
+              <div class="learning-card-title">Backend APIs & Auth</div>
+              <div class="learning-progress-label">32%</div>
+            </div>
+            <p class="learning-desc">
+              REST API design, JWT authentication, database integration, and building secure backends that power
+              the web apps I ship for clients.
+            </p>
+            <div class="learning-track">
+              <div class="learning-fill" data-width="32"></div>
+            </div>
+            <div class="learning-eta">ONGOING · Source: Projects, FastAPI docs, Node guides</div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- ── Footer ───────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer-left">© 2026 DEVFOLIO_OS · Build v2.4.1 · All systems nominal</div>
+      <div class="footer-right">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./projects.html">Projects</a>
+        <a href="./contact.html">Contact</a>
+      </div>
+    </footer>
+
+    <script src="./main.js"></script>
+    <script>
+      /* ── Skills Page JS ────────────────────────────────────── */
+
+      // Animate skill bars when they enter the viewport
+      const animateSkillBars = () => {
+        const fills = document.querySelectorAll(".skill-fill, .learning-fill");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                const targetWidth = el.getAttribute("data-width");
+                if (targetWidth) {
+                  // Small delay for staggered effect within category
+                  const parent = el.closest(".skill-item, .learning-card");
+                  const siblings = parent ? [...parent.parentElement.children].indexOf(parent) : 0;
+                  setTimeout(() => {
+                    el.style.width = targetWidth + "%";
+                  }, siblings * 60);
+                }
+                observer.unobserve(el);
+              }
+            });
+          },
+          { threshold: 0.3 },
+        );
+
+        fills.forEach((fill) => observer.observe(fill));
+      };
+
+      // Animate stat counters
+      const animateCounters = () => {
+        const counters = document.querySelectorAll("[data-count]");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.getAttribute("data-count"));
+                const duration = 1200;
+                const step = target / (duration / 16);
+                let current = 0;
+                const timer = setInterval(() => {
+                  current = Math.min(current + step, target);
+                  el.textContent = Math.floor(current);
+                  if (current >= target) {
+                    el.textContent = target + "+";
+                    clearInterval(timer);
+                  }
+                }, 16);
+                observer.unobserve(el);
+              }
+            });
+          },
+          { threshold: 0.5 },
+        );
+        counters.forEach((c) => observer.observe(c));
+      };
+
+      // Tool pill hover sparkle effect
+      const addPillInteractivity = () => {
+        const pills = document.querySelectorAll(".tool-pill");
+        pills.forEach((pill) => {
+          pill.addEventListener("mouseenter", function () {
+            this.style.setProperty("--glow", "rgba(0,245,255,0.15)");
+          });
+        });
+      };
+
+      // Category card hover: highlight all bars in that category
+      const addCategoryHover = () => {
+        const categories = document.querySelectorAll(".skill-category");
+        categories.forEach((cat) => {
+          cat.addEventListener("mouseenter", () => {
+            cat.querySelectorAll(".skill-name").forEach((n) => {
+              n.style.color = "var(--text-primary)";
+            });
+          });
+          cat.addEventListener("mouseleave", () => {
+            cat.querySelectorAll(".skill-name").forEach((n) => {
+              n.style.color = "";
+            });
+          });
+        });
+      };
+
+      // AI Tool card — tilt effect
+      const addCardTilt = () => {
+        const cards = document.querySelectorAll(".ai-tool-card");
+        cards.forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
+            card.style.transform = `perspective(600px) rotateX(${y}deg) rotateY(${x}deg) translateY(-3px)`;
+          });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+          });
+        });
+      };
+
+      // Init
+      document.addEventListener("DOMContentLoaded", () => {
+        animateSkillBars();
+        animateCounters();
+        addPillInteractivity();
+        addCategoryHover();
+        addCardTilt();
+      });
+    </script>
+  </body>
+</html>
