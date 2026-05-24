@@ -6,7 +6,7 @@
 
 An immersive, terminal-themed, holographic portfolio ecosystem designed as a pseudo-operating system (`DEVFOLIO_OS`). Built to showcase intelligent engineering, modern design metrics, and software architecture at the intersection of product and infrastructure.
 
-👉 **Live Station:** [your-username.github.io](https://your-username.github.io)
+👉 **Live Station:** [sobi_mohammet.github.io](https://sobimohammet.github.io/DEVFOLIO_OS/)
 
 ---
 
